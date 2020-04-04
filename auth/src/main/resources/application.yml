@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url:
+    driver-class-name: org.mariadb.jdbc.Driver
+    username:
+    password: 
+    dbcp2:
+      validation-query: SELECT 1
+      test-while-idle: true
+
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
