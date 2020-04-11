@@ -2,7 +2,6 @@ package com.ndgndg91.commerce.auth.security.member.service;
 
 import com.ndgndg91.commerce.auth.security.member.Member;
 import com.ndgndg91.commerce.auth.security.member.MemberIdentifier;
-import com.ndgndg91.commerce.auth.security.member.MemberIdentifierType;
 import com.ndgndg91.commerce.auth.security.member.exception.NotExistsMemberException;
 import com.ndgndg91.commerce.auth.security.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +35,7 @@ public class MemberService {
 
         Member loginMember = principalMember.get();
         loginMember.checkPassword(credentials);
+        loginMember.increaseLoginCount();
 
         return loginMember;
     }

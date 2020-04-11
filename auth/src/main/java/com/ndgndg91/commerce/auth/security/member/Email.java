@@ -25,7 +25,7 @@ public class Email implements MemberIdentifier{
         this.address = address;
     }
 
-    private static boolean checkAddress(String address) {
+    public static boolean checkAddress(String address) {
         return matches("[\\w~\\-.+]+@[\\w~\\-]+(\\.[\\w~\\-]+)+", address);
     }
 

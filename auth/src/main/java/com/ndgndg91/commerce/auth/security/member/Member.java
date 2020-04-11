@@ -2,6 +2,7 @@ package com.ndgndg91.commerce.auth.security.member;
 
 
 import com.ndgndg91.commerce.auth.security.member.exception.InvalidPasswordException;
+import com.ndgndg91.commerce.auth.security.security.JWT;
 import lombok.Getter;
 
 import javax.persistence.Entity;
@@ -47,5 +48,14 @@ public class Member {
             return;
 
         throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
+    }
+
+    public void increaseLoginCount(){
+        this.loginCount += 1;
+    }
+
+    public String newApiToken(JWT jwt, String[] roles) {
+        JWT.Claims claims = JWT.Claims.of(memberNo, userName, new Email(id), roles);
+        return jwt.newToken(claims);
     }
 }

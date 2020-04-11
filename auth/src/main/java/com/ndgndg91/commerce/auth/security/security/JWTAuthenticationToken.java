@@ -1,6 +1,6 @@
 package com.ndgndg91.commerce.auth.security.security;
 
-import com.ndgndg91.commerce.auth.security.security.request.JWTAuthenticateRequest;
+import com.ndgndg91.commerce.auth.security.security.request.AuthenticationRequest;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -28,8 +28,8 @@ public class JWTAuthenticationToken extends AbstractAuthenticationToken {
         this.credentials = credentials;
     }
 
-    public JWTAuthenticateRequest toRequest(){
-        return new JWTAuthenticateRequest(principal, credentials);
+    public AuthenticationRequest toRequest(){
+        return new AuthenticationRequest(principal, credentials);
     }
 
     @Override

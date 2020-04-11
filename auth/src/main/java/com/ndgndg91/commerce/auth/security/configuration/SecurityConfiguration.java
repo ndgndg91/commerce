@@ -1,20 +1,20 @@
 package com.ndgndg91.commerce.auth.security.configuration;
 
 import com.ndgndg91.commerce.auth.security.component.EntryPointUnauthorizedHandler;
-import com.ndgndg91.commerce.auth.security.security.JWT;
 import com.ndgndg91.commerce.auth.security.component.JWTAccessDeniedHandler;
+import com.ndgndg91.commerce.auth.security.component.JWTAuthenticationProvider;
+import com.ndgndg91.commerce.auth.security.component.JWTAuthenticationTokenFilter;
+import com.ndgndg91.commerce.auth.security.security.JWT;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.sql.DataSource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -25,20 +25,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final EntryPointUnauthorizedHandler unauthorizedHandler;
 
-    private final DataSource dataSource;
+    private final JWTAuthenticationProvider jwtAuthenticationProvider;
 
-    @Value("${jwt.issuer}") private String issuer;
-    @Value("${jwt.clientSecret}") private String clientSecret;
-    @Value("${jwt.expirySeconds}") private int expirySeconds;
+    private final JWT jwt;
 
     @Bean
-    public JWT jwt(){
-        return new JWT(issuer, clientSecret, expirySeconds);
+    public JWTAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+        return new JWTAuthenticationTokenFilter(jwt);
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(jwtAuthenticationProvider);
+        super.configure(auth);
     }
 
     @Override
@@ -55,14 +60,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-//            .authenticationProvider()
             .authorizeRequests()
-                .antMatchers("/member").permitAll()
+//                .antMatchers("/member").permitAll()
                 .antMatchers("/sign-in", "/sign-up").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
                 .disable();
+        http
+                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 }

@@ -3,7 +3,6 @@ package com.ndgndg91.commerce.auth.security.security;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ndgndg91.commerce.auth.security.member.Email;
@@ -44,14 +43,14 @@ public final class JWT {
         return builder.sign(algorithm);
     }
 
-    public String refreshToken(String token) throws JWTVerificationException {
+    public String refreshToken(String token) {
         Claims claims = verify(token);
         claims.eraseIat();
         claims.eraseExp();
         return newToken(claims);
     }
 
-    public Claims verify(String token) throws JWTVerificationException {
+    public Claims verify(String token) {
         return new Claims(jwtVerifier.verify(token));
     }
 
@@ -76,12 +75,12 @@ public final class JWT {
     }
 
     public static class Claims {
-        Long userKey;
-        String name;
-        Email email;
-        String[] roles;
-        Date iat;
-        Date exp;
+        private Long userKey;
+        private String name;
+        private Email email;
+        private String[] roles;
+        private Date iat;
+        private Date exp;
 
         private Claims() {}
 
@@ -111,19 +110,35 @@ public final class JWT {
             return claims;
         }
 
-        long iat() {
+        public Long getUserKey() {
+            return userKey;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Email getEmail() {
+            return email;
+        }
+
+        public String[] getRoles() {
+            return roles;
+        }
+
+        public long iat() {
             return iat != null ? iat.getTime() : -1;
         }
 
-        long exp() {
+        public long exp() {
             return exp != null ? exp.getTime() : -1;
         }
 
-        void eraseIat() {
+        public void eraseIat() {
             iat = null;
         }
 
-        void eraseExp() {
+        public void eraseExp() {
             exp = null;
         }
 

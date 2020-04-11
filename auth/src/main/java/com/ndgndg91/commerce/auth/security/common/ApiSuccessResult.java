@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public final class ApiSuccessResult {
+public final class ApiSuccessResult implements ApiResponse{
 
     @Getter
     @JsonUnwrapped
