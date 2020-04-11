@@ -1,8 +1,10 @@
 package com.ndgndg91.commerce.auth.security.configuration;
 
 import com.ndgndg91.commerce.auth.security.component.EntryPointUnauthorizedHandler;
+import com.ndgndg91.commerce.auth.security.security.JWT;
 import com.ndgndg91.commerce.auth.security.component.JWTAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,6 +27,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final DataSource dataSource;
 
+    @Value("${jwt.issuer}") private String issuer;
+    @Value("${jwt.clientSecret}") private String clientSecret;
+    @Value("${jwt.expirySeconds}") private int expirySeconds;
+
+    @Bean
+    public JWT jwt(){
+        return new JWT(issuer, clientSecret, expirySeconds);
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -44,6 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+//            .authenticationProvider()
             .authorizeRequests()
                 .antMatchers("/member").permitAll()
                 .antMatchers("/sign-in", "/sign-up").permitAll()

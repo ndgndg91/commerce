@@ -3,7 +3,7 @@ spring:
     url:
     driver-class-name: org.mariadb.jdbc.Driver
     username:
-    password: 
+    password:
     dbcp2:
       validation-query: SELECT 1
       test-while-idle: true
@@ -17,3 +17,7 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
+jwt:
+  issuer: ndgndg91-good
+  client-secret: 6eb80d65d8ea90ed2157a405fc93766309169bcbb4b771a800f83ba1d355f99e
+  expiry-seconds: 0
