@@ -85,18 +85,18 @@ public final class JWT {
         private Claims() {}
 
         Claims(DecodedJWT decodedJWT) {
-            Claim userKey = decodedJWT.getClaim("userKey");
-            if (!userKey.isNull())
-                this.userKey = userKey.asLong();
-            Claim name = decodedJWT.getClaim("name");
-            if (!name.isNull())
-                this.name = name.asString();
-            Claim email = decodedJWT.getClaim("email");
-            if (!email.isNull())
-                this.email = new Email(email.asString());
-            Claim roles = decodedJWT.getClaim("roles");
-            if (!roles.isNull())
-                this.roles = roles.asArray(String.class);
+            Claim userKeyClaim = decodedJWT.getClaim("userKey");
+            if (!userKeyClaim.isNull())
+                this.userKey = userKeyClaim.asLong();
+            Claim nameClaim = decodedJWT.getClaim("name");
+            if (!nameClaim.isNull())
+                this.name = nameClaim.asString();
+            Claim emailClaim = decodedJWT.getClaim("email");
+            if (!emailClaim.isNull())
+                this.email = new Email(emailClaim.asString());
+            Claim rolesClaim = decodedJWT.getClaim("roles");
+            if (!rolesClaim.isNull())
+                this.roles = rolesClaim.asArray(String.class);
             this.iat = decodedJWT.getIssuedAt();
             this.exp = decodedJWT.getExpiresAt();
         }
