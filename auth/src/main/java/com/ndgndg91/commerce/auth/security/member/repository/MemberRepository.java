@@ -14,8 +14,11 @@ public class MemberRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public List<Member> findAll(){
-        return em.createQuery("SELECT m FROM Member m", Member.class).getResultList();
+    public List<Member> findAll(int offset, int limit){
+        return em.createQuery("SELECT m FROM Member m", Member.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
     }
 
     public Optional<Member> findByEmail(String email) {
@@ -29,4 +32,5 @@ public class MemberRepository {
                 .setParameter("userName", userName)
                 .getSingleResult());
     }
+
 }

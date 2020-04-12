@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.auth.security.component;
+package com.ndgndg91.commerce.auth.security.security.component;
 
 import com.ndgndg91.commerce.auth.security.member.Member;
 import com.ndgndg91.commerce.auth.security.member.service.MemberService;
@@ -29,7 +29,7 @@ public class JWTAuthenticationProvider implements AuthenticationProvider {
         return processAuthenticate(jwtAuthenticateRequest);
     }
 
-    private JWTAuthenticationToken processAuthenticate(AuthenticationRequest jwtAuthenticateRequest){
+    private JWTAuthenticationToken processAuthenticate(AuthenticationRequest jwtAuthenticateRequest) {
         Member loginMember = memberService.login(jwtAuthenticateRequest.getPrincipal(), jwtAuthenticateRequest.getCredentials());
         JWTAuthenticationToken authenticated = new JWTAuthenticationToken(loginMember.getMemberNo(), null, createAuthorityList(Role.USER.name()));
         String token = loginMember.newApiToken(jwt, new String[]{Role.USER.name()});

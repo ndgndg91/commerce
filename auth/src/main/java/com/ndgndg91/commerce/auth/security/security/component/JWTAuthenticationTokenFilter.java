@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.auth.security.component;
+package com.ndgndg91.commerce.auth.security.security.component;
 
 import com.ndgndg91.commerce.auth.security.member.Email;
 import com.ndgndg91.commerce.auth.security.security.JWT;
@@ -25,6 +25,7 @@ import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.nonNull;
@@ -45,7 +46,7 @@ public class JWTAuthenticationTokenFilter extends GenericFilterBean {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
             String authorizationToken = obtainAuthorizationToken(request);
             if (authorizationToken != null) {
                 try {

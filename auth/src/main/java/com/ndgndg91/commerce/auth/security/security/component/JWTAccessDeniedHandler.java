@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.auth.security.component;
+package com.ndgndg91.commerce.auth.security.security.component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ndgndg91.commerce.auth.security.common.ApiFailResult;

@@ -50,12 +50,16 @@ public class Member {
         throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
     }
 
-    public void increaseLoginCount(){
-        this.loginCount += 1;
-    }
-
     public String newApiToken(JWT jwt, String[] roles) {
         JWT.Claims claims = JWT.Claims.of(memberNo, userName, new Email(id), roles);
         return jwt.newToken(claims);
+    }
+
+    public void omitPassword() {
+        this.password = null;
+    }
+
+    public void increaseLoginCount() {
+        this.loginCount++;
     }
 }

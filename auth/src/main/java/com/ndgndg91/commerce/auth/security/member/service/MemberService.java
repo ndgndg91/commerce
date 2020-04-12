@@ -4,12 +4,16 @@ import com.ndgndg91.commerce.auth.security.member.Member;
 import com.ndgndg91.commerce.auth.security.member.MemberIdentifier;
 import com.ndgndg91.commerce.auth.security.member.exception.NotExistsMemberException;
 import com.ndgndg91.commerce.auth.security.member.repository.MemberRepository;
+import com.ndgndg91.commerce.auth.security.member.response.MemberToFront;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.ndgndg91.commerce.auth.security.member.MemberIdentifierType.EMAIL;
 
@@ -20,12 +24,15 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public List<Member> getAllMembers(){
-        List<Member> all = memberRepository.findAll();
+    public List<MemberToFront> getAllMembers(int offset, int limit){
+        List<Member> all = memberRepository.findAll(offset, limit);
         log.info("{}", all);
-        return all;
+        return all.stream()
+                .map(MemberToFront::transform)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
     }
 
+    @Transactional
     public Member login(MemberIdentifier principal, String credentials) {
         Optional<Member> principalMember;
         principalMember = findByMemberIdentifier(principal);
@@ -46,4 +53,5 @@ public class MemberService {
 
         return memberRepository.findByUserName(principal.getId());
     }
+
 }

@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.auth.security.auth;
+package com.ndgndg91.commerce.auth.security.auth.controller;
 
 import com.ndgndg91.commerce.auth.security.auth.exception.UnauthorizedException;
 import com.ndgndg91.commerce.auth.security.security.JWTAuthenticationToken;

@@ -1,9 +1,9 @@
-package com.ndgndg91.commerce.auth.security.configuration;
+package com.ndgndg91.commerce.auth.security.security.configuration;
 
-import com.ndgndg91.commerce.auth.security.component.EntryPointUnauthorizedHandler;
-import com.ndgndg91.commerce.auth.security.component.JWTAccessDeniedHandler;
-import com.ndgndg91.commerce.auth.security.component.JWTAuthenticationProvider;
-import com.ndgndg91.commerce.auth.security.component.JWTAuthenticationTokenFilter;
+import com.ndgndg91.commerce.auth.security.security.component.EntryPointUnauthorizedHandler;
+import com.ndgndg91.commerce.auth.security.security.component.JWTAccessDeniedHandler;
+import com.ndgndg91.commerce.auth.security.security.component.JWTAuthenticationProvider;
+import com.ndgndg91.commerce.auth.security.security.component.JWTAuthenticationTokenFilter;
 import com.ndgndg91.commerce.auth.security.security.JWT;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

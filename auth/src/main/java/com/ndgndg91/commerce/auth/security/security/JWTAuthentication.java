@@ -1,6 +1,8 @@
 package com.ndgndg91.commerce.auth.security.security;
 
 import com.ndgndg91.commerce.auth.security.member.Email;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -19,5 +21,11 @@ public class JWTAuthentication {
         this.memberNo = id;
         this.userName = name;
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .toString();
     }
 }

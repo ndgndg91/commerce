@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.auth.security.configuration;
+package com.ndgndg91.commerce.auth.security.security.configuration;
 
 import com.ndgndg91.commerce.auth.security.security.JWT;
 import org.springframework.beans.factory.annotation.Value;
