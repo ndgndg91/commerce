@@ -23,6 +23,6 @@ jwt:
   client-secret: 6eb80d65d8ea90ed2157a405fc93766309169bcbb4b771a800f83ba1d355f99e
   expiry-seconds: 900
 
-logging:
-  level:
-    root: debug
+#logging:
+#  level:
+#    root: debug

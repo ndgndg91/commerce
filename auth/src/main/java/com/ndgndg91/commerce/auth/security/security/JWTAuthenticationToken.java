@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 public class JWTAuthenticationToken extends AbstractAuthenticationToken {
-    private Object principal;
+    private transient Object principal;
 
     private String credentials;
 
@@ -53,5 +53,10 @@ public class JWTAuthenticationToken extends AbstractAuthenticationToken {
     public void eraseCredentials() {
         super.eraseCredentials();
         credentials = null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }
