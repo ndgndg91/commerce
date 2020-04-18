@@ -4,21 +4,24 @@ import lombok.Getter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "product")
-public class Product {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Product {
+
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productSeqGen")
+    @SequenceGenerator(name = "productSeqGen", sequenceName="PRODUCT_ID_SEQ", allocationSize=20)
+    private Long id;
     private String name;
     private BigDecimal normalPrice;
     private BigDecimal discountPrice;
+    private LocalDate updatedTime;
     private LocalDateTime createdTime;
 
     @Override
