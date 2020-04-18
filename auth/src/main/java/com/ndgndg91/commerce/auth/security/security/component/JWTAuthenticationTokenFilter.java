@@ -48,7 +48,7 @@ public class JWTAuthenticationTokenFilter extends GenericFilterBean {
 
         if (Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
             String authorizationToken = obtainAuthorizationToken(request);
-            if (authorizationToken != null) {
+            if (Objects.nonNull(authorizationToken)) {
                 try {
                     JWT.Claims claims = verify(request, authorizationToken);
                     log.debug("Jwt parse result: {}", claims);
@@ -100,7 +100,7 @@ public class JWTAuthenticationTokenFilter extends GenericFilterBean {
 
     private String obtainAuthorizationToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
-        if (token != null) {
+        if (Objects.nonNull(token)) {
             if (log.isDebugEnabled())
                 log.debug("Jwt authorization api detected: {}", token);
             try {
