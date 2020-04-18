@@ -1,0 +1,13 @@
+GET http://127.0.0.1:8080/products
+api_key: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sImlzcyI6Im5kZ25kZzkxLWdvb2QiLCJuYW1lIjoibmRnbmRnOTEiLCJleHAiOjE1ODcxOTYxMTUsImlhdCI6MTU4NzE5NTIxNSwidXNlcktleSI6MzA1OTUsImVtYWlsIjoibmRnbmRnOTFAZ21haWwuY29tIn0.jWQjhPgOVct5S8bgaWg8cZHzbG5jRZMkcAjfWNM3g4d_a9xRs_N5J2raySi5bboQl_-geFX65jrabq7ipbywFQ
+###
+
+POST http://127.0.0.1:9090/sign-in
+Content-Type: application/json
+
+{
+  "principal" : "ndgndg91@gmail.com",
+  "credentials": "$s0$e0801$QwLnCaWcQYwBoIAF4wJpzw==$CNcCO9dfrl12iQPczeZcFOedds+afWDQz1E2ige0Ass="
+}
+
+###
