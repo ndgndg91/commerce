@@ -4,7 +4,6 @@ import com.ndgndg91.commerce.auth.security.member.Member;
 import com.ndgndg91.commerce.auth.security.member.MemberIdentifier;
 import com.ndgndg91.commerce.auth.security.member.exception.NotExistsMemberException;
 import com.ndgndg91.commerce.auth.security.member.repository.MemberRepository;
-import com.ndgndg91.commerce.auth.security.member.request.CreateMemberRequest;
 import com.ndgndg91.commerce.auth.security.member.response.MemberToFront;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,9 +54,15 @@ public class MemberService {
         return memberRepository.findByUserName(principal.getId());
     }
 
-    public long signUp(CreateMemberRequest request) {
-        Member member = request.toMember();
+    @Transactional
+    public long signUp(Member member) {
+        validateDuplicateMember(member);
         Member signUpMember = memberRepository.save(member);
         return signUpMember.getMemberNo();
+    }
+
+    private void validateDuplicateMember(Member member) {
+        memberRepository.findByEmail(member.getId())
+                .ifPresent(m -> {throw new IllegalCallerException("중복 회원");});
     }
 }

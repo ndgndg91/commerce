@@ -39,7 +39,7 @@ public class MemberController {
     @PostMapping("/sign-up")
     public ResponseEntity<Void> signUp(@RequestBody final CreateMemberRequest request){
         request.validate();
-        long id = memberService.signUp(request);
+        long id = memberService.signUp(request.toMember());
         URI memberUri = URI.create("/member/"+id);
         return ResponseEntity.created(memberUri).build();
     }
