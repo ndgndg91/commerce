@@ -33,4 +33,9 @@ public class MemberRepository {
                 .getSingleResult());
     }
 
+    public Member save(Member member){
+        em.persist(member);
+        return member;
+    }
+
 }

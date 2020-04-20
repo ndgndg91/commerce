@@ -4,6 +4,7 @@ import com.ndgndg91.commerce.auth.security.member.Member;
 import com.ndgndg91.commerce.auth.security.member.MemberIdentifier;
 import com.ndgndg91.commerce.auth.security.member.exception.NotExistsMemberException;
 import com.ndgndg91.commerce.auth.security.member.repository.MemberRepository;
+import com.ndgndg91.commerce.auth.security.member.request.CreateMemberRequest;
 import com.ndgndg91.commerce.auth.security.member.response.MemberToFront;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,4 +55,9 @@ public class MemberService {
         return memberRepository.findByUserName(principal.getId());
     }
 
+    public long signUp(CreateMemberRequest request) {
+        Member member = request.toMember();
+        Member signUpMember = memberRepository.save(member);
+        return signUpMember.getMemberNo();
+    }
 }

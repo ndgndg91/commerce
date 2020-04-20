@@ -62,4 +62,10 @@ public class Member {
     public void increaseLoginCount() {
         this.loginCount++;
     }
+
+    public void signUp(String id, String userName, String password){
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+    }
 }
