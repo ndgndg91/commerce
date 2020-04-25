@@ -5,5 +5,5 @@ import com.ndgndg91.commerce.product.domain.Product;
 import java.util.List;
 
 public interface ProductService<T extends Product> {
-    List<T> findAll();
+    List<T> findAllWithPagination(int offset, int limit);
 }

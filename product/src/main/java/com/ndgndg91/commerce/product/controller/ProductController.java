@@ -1,5 +1,6 @@
 package com.ndgndg91.commerce.product.controller;
 
+import com.ndgndg91.commerce.product.common.page.Pageable;
 import com.ndgndg91.commerce.product.domain.Product;
 import com.ndgndg91.commerce.product.domain.ProductType;
 import com.ndgndg91.commerce.product.service.ProductService;
@@ -19,10 +20,12 @@ public class ProductController {
     private final Map<String, ProductService> productFindService;
 
     @GetMapping("/products/{productCode}")
-    public ResponseEntity<List<Product>> findAll(@PathVariable int productCode){
+    public ResponseEntity<List<Product>> findAll(
+            @PathVariable int productCode,
+            Pageable request){
         String serviceName = ProductType.find(productCode);
         ProductService productProductService = productFindService.get(serviceName);
-        List<Product> all = productProductService.findAll();
+        List<Product> all = productProductService.findAllWithPagination(request.offset(), request.limit());
         return ResponseEntity.ok(all);
     }
 }

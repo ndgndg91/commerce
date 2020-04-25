@@ -1,9 +1,24 @@
 package com.ndgndg91.commerce.product.repository;
 
 import com.ndgndg91.commerce.product.domain.Electronics;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
 @Repository
-public interface ElectronicsProductRepository extends JpaRepository<Electronics, Long> {
+@RequiredArgsConstructor
+public class ElectronicsProductRepository {
+
+    @PersistenceContext
+    private final  EntityManager em;
+
+    public List<Electronics> findByPageable(int offset, int limit) {
+        return em.createQuery("SELECT e FROM Electronics e", Electronics.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }

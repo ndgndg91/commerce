@@ -20,8 +20,7 @@ public enum ProductType {
         return Arrays.stream(ProductType.values())
                 .filter(productType -> productType.codeValue == codeValue)
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException()).serviceName;
-
+                .orElseThrow(IllegalArgumentException::new).serviceName;
     }
 
     public String getServiceName() {
