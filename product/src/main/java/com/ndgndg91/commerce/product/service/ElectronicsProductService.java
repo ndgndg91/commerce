@@ -14,7 +14,7 @@ public class ElectronicsProductService implements ProductService<Electronics> {
     private final ElectronicsProductRepository electronicsProductRepository;
 
     @Override
-    public List<Electronics> findAllWithPagination(int offset, int limit) {
-        return electronicsProductRepository.findByPageable(offset, limit);
+    public List<Electronics> findAllWithPagination(long memberNo, int offset, int limit) {
+        return electronicsProductRepository.findByPageable(memberNo, offset, limit);
     }
 }

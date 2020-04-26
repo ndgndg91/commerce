@@ -15,8 +15,9 @@ public class BookProductRepository {
     @PersistenceContext
     private final EntityManager em;
 
-    public List<Book> findByPageable(int offset, int limit){
-        return em.createQuery("SELECT b FROM Book b", Book.class)
+    public List<Book> findByPageable(long memberNo, int offset, int limit){
+        return em.createQuery("SELECT b FROM Book b WHERE b.memberNo = :memberNo", Book.class)
+                .setParameter("memberNo", memberNo)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();

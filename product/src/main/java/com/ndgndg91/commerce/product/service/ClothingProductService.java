@@ -13,7 +13,7 @@ public class ClothingProductService implements ProductService<Clothing> {
     private final ClothingProductRepository clothingProductRepository;
 
     @Override
-    public List<Clothing> findAllWithPagination(int offset, int limit) {
-        return clothingProductRepository.findByPageable(offset, limit);
+    public List<Clothing> findAllWithPagination(long memberNo, int offset, int limit) {
+        return clothingProductRepository.findByPageable(memberNo, offset, limit);
     }
 }

@@ -13,7 +13,7 @@ public class BookProductService implements ProductService<Book> {
     private final BookProductRepository bookProductRepository;
 
     @Override
-    public List<Book> findAllWithPagination(int offset, int limit) {
-        return bookProductRepository.findByPageable(offset, limit);
+    public List<Book> findAllWithPagination(long memberNo, int offset, int limit) {
+        return bookProductRepository.findByPageable(memberNo, offset, limit);
     }
 }

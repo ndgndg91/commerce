@@ -15,8 +15,9 @@ public class ClothingProductRepository {
     @PersistenceContext
     private final EntityManager em;
 
-    public List<Clothing> findByPageable(int offset, int limit) {
-        return em.createQuery("SELECT c FROM Clothing c", Clothing.class)
+    public List<Clothing> findByPageable(long memberNo, int offset, int limit) {
+        return em.createQuery("SELECT c FROM Clothing c WHERE c.memberNo =:memberNo", Clothing.class)
+                .setParameter("memberNo", memberNo)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();

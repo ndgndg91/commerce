@@ -8,8 +8,8 @@ public enum ProductType {
     ELECTRONICS("ElectronicsProduct", 3),
     FOOD("FoodProduct", 4);
 
-    private String serviceName;
-    private int codeValue;
+    private final String serviceName;
+    private final int codeValue;
 
     ProductType(String serviceName, int productCode) {
         this.serviceName = serviceName;

@@ -24,6 +24,8 @@ public abstract class Product {
     private LocalDate updatedTime;
     private LocalDateTime createdTime;
 
+    private long memberNo;
+
     @Override
     public String toString() {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
