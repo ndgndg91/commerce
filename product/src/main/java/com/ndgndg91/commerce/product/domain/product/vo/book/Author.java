@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.product.domain.vo.book;
+package com.ndgndg91.commerce.product.domain.product.vo.book;
 
 import lombok.Getter;
 

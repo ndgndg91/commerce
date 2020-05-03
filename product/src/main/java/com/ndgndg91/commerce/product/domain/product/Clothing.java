@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.product.domain;
+package com.ndgndg91.commerce.product.domain.product;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

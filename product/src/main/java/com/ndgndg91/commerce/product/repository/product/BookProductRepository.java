@@ -1,6 +1,6 @@
-package com.ndgndg91.commerce.product.repository;
+package com.ndgndg91.commerce.product.repository.product;
 
-import com.ndgndg91.commerce.product.domain.Clothing;
+import com.ndgndg91.commerce.product.domain.product.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,13 +10,13 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ClothingProductRepository {
+public class BookProductRepository {
 
     @PersistenceContext
     private final EntityManager em;
 
-    public List<Clothing> findByPageable(long memberNo, int offset, int limit) {
-        return em.createQuery("SELECT c FROM Clothing c WHERE c.memberNo =:memberNo", Clothing.class)
+    public List<Book> findByPageable(long memberNo, int offset, int limit){
+        return em.createQuery("SELECT b FROM Book b WHERE b.memberNo = :memberNo", Book.class)
                 .setParameter("memberNo", memberNo)
                 .setFirstResult(offset)
                 .setMaxResults(limit)

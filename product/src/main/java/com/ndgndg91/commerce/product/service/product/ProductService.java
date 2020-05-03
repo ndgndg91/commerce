@@ -1,6 +1,6 @@
-package com.ndgndg91.commerce.product.service;
+package com.ndgndg91.commerce.product.service.product;
 
-import com.ndgndg91.commerce.product.domain.Product;
+import com.ndgndg91.commerce.product.domain.product.Product;
 
 import java.util.List;
 

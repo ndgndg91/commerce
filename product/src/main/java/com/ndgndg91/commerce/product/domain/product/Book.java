@@ -1,8 +1,8 @@
-package com.ndgndg91.commerce.product.domain;
+package com.ndgndg91.commerce.product.domain.product;
 
-import com.ndgndg91.commerce.product.domain.vo.Size;
-import com.ndgndg91.commerce.product.domain.vo.Weight;
-import com.ndgndg91.commerce.product.domain.vo.book.Author;
+import com.ndgndg91.commerce.product.domain.product.vo.Size;
+import com.ndgndg91.commerce.product.domain.product.vo.Weight;
+import com.ndgndg91.commerce.product.domain.product.vo.book.Author;
 import lombok.Getter;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.product.domain;
+package com.ndgndg91.commerce.product.domain.product;
 
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -6,7 +6,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -21,7 +20,7 @@ public abstract class Product {
     private String name;
     private BigDecimal normalPrice;
     private BigDecimal discountPrice;
-    private LocalDate updatedTime;
+    private LocalDateTime updatedTime;
     private LocalDateTime createdTime;
 
     private long memberNo;

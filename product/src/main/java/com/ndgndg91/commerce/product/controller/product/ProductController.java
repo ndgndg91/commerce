@@ -1,10 +1,10 @@
-package com.ndgndg91.commerce.product.controller;
+package com.ndgndg91.commerce.product.controller.product;
 
 import com.ndgndg91.commerce.product.common.page.Pageable;
-import com.ndgndg91.commerce.product.domain.Product;
-import com.ndgndg91.commerce.product.domain.ProductType;
+import com.ndgndg91.commerce.product.domain.product.Product;
+import com.ndgndg91.commerce.product.domain.product.ProductType;
 import com.ndgndg91.commerce.product.security.domain.JWTAuthentication;
-import com.ndgndg91.commerce.product.service.ProductService;
+import com.ndgndg91.commerce.product.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ProductController {
 
     private final Map<String, ProductService> productFindService;

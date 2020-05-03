@@ -1,6 +1,6 @@
-package com.ndgndg91.commerce.product.repository;
+package com.ndgndg91.commerce.product.repository.product;
 
-import com.ndgndg91.commerce.product.domain.Food;
+import com.ndgndg91.commerce.product.domain.product.Food;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
