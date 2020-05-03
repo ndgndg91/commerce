@@ -12,6 +12,7 @@ import java.util.Set;
 
 @Getter
 @Entity
+@Table(name = "product")
 public class Product {
 
     @Id
