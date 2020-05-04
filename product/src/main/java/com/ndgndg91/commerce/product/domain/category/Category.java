@@ -3,6 +3,9 @@ package com.ndgndg91.commerce.product.domain.category;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -48,5 +51,11 @@ public class Category {
     @Override
     public int hashCode() {
         return Objects.hash(categoryId);
+    }
+
+    @Override
+    public String toString() {
+        return new ReflectionToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
+                .toString();
     }
 }

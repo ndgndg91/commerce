@@ -27,13 +27,13 @@ public class  CategoryService {
     }
 
     public Category findById(final long memberNo, final Long categoryId) {
-        return categoryRepository.findById(memberNo, categoryId)
-                .orElse(Category.EMPTY);
+        return categoryRepository.findById(memberNo, categoryId).orElse(Category.EMPTY);
     }
 
     @Transactional
     public Category updateCategory(final long memberNo, final Long categoryId, final String categoryName) {
         Category existsCategory = categoryRepository.findById(memberNo, categoryId).orElseThrow(NotFoundException::new);
+
         existsCategory.updateCategoryName(categoryName);
         return existsCategory;
     }

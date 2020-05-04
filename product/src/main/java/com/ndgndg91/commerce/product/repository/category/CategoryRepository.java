@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +31,15 @@ public class CategoryRepository {
     }
 
     public Optional<Category> findById(long memberNo, Long categoryId) {
-        return Optional.ofNullable(em.createQuery("SELECT c FROM Category c WHERE c.memberNo =:memberNo AND c.categoryId = :categoryId", Category.class)
-                .setParameter("memberNo", memberNo)
-                .setParameter("categoryId", categoryId)
-                .getSingleResult());
+        try {
+            return Optional.ofNullable(em.createQuery("SELECT c FROM Category c WHERE c.memberNo =:memberNo AND c.categoryId = :categoryId", Category.class)
+                    .setParameter("memberNo", memberNo)
+                    .setParameter("categoryId", categoryId)
+                    .getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+
     }
 
     public void delete(long memberNo, Long categoryId) {

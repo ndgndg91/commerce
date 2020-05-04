@@ -1,0 +1,5 @@
+jwt:
+  header: api_key
+  issuer: ndgndg91-good
+  client-secret: 6eb80d65d8ea90ed2157a405fc93766309169bcbb4b771a800f83ba1d355f99e
+  expiry-seconds: 900
