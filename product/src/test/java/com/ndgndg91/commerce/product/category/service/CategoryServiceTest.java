@@ -49,23 +49,25 @@ public class CategoryServiceTest {
     @Test
     @Order(1)
     @DisplayName("상의 카테고리 추가")
-    public void addTopCategory() throws Exception {
+    public void addTopCategory() {
         topCategoryId = categoryService.createCategory(memberNo, topCategoryName);
         logger.info("{}", topCategoryId);
+        org.junit.jupiter.api.Assertions.assertNotSame(null, topCategoryId);
     }
 
     @Test
     @Order(2)
     @DisplayName("하의 카테고리 추가")
-    public void addBottomCategory() throws Exception {
+    public void addBottomCategory() {
         bottomCategoryId = categoryService.createCategory(memberNo, bottomCategoryName);
         logger.info("{}", bottomCategoryId);
+        org.junit.jupiter.api.Assertions.assertNotSame(null, bottomCategoryId);
     }
 
     @Test
     @Order(3)
     @DisplayName("카테고리 목록 조회")
-    public void findCategories() throws Exception {
+    public void findCategories() {
         //given
         Pageable pageable = new PageableRequest();
 
@@ -81,7 +83,7 @@ public class CategoryServiceTest {
     @Test
     @Order(4)
     @DisplayName("상의 카테고리 조회")
-    public void findTopCategory() throws Exception {
+    public void findTopCategory() {
         Category topCategory = categoryService.findById(memberNo, topCategoryId);
 
         Assertions.assertThat(topCategory.getCategoryId()).isEqualTo(topCategoryId);
@@ -91,7 +93,7 @@ public class CategoryServiceTest {
     @Test
     @Order(5)
     @DisplayName("하의 카테고리 조회")
-    public void findBottomCategory() throws Exception {
+    public void findBottomCategory() {
         Category bottomCategory = categoryService.findById(memberNo, bottomCategoryId);
 
         Assertions.assertThat(bottomCategory.getCategoryId()).isEqualTo(bottomCategoryId);
@@ -101,7 +103,7 @@ public class CategoryServiceTest {
     @Test
     @Order(6)
     @DisplayName("상의 카테고리 이름 업데이트")
-    public void updateTopCategory() throws Exception {
+    public void updateTopCategory() {
         Category updatedTopCategory = categoryService.updateCategory(memberNo, topCategoryId, toBeTopCategoryName);
 
         logger.info("{}", updatedTopCategory);
@@ -113,7 +115,7 @@ public class CategoryServiceTest {
     @Test
     @Order(7)
     @DisplayName("상의 카테고리 이름 변경 후 카테고리 목록 조회")
-    public void findCategoriesAgain() throws Exception {
+    public void findCategoriesAgain() {
         //given
         Pageable pageable = new PageableRequest();
 
@@ -132,14 +134,16 @@ public class CategoryServiceTest {
     @Test
     @Order(8)
     @DisplayName("하의 카테고리 삭제")
-    public void deleteBottomCategory() throws Exception {
-        categoryService.deleteCategory(memberNo, bottomCategoryId);
+    public void deleteBottomCategory() {
+        org.junit.jupiter.api.Assertions.assertDoesNotThrow(
+                () -> categoryService.deleteCategory(memberNo, bottomCategoryId)
+        );
     }
 
     @Test
     @Order(9)
     @DisplayName("하의 카테고리 삭제 후 카테고리 목록 조회")
-    public void findCategoriesLast() throws Exception {
+    public void findCategoriesLast() {
         //given
         Pageable pageable = new PageableRequest();
 
@@ -156,7 +160,7 @@ public class CategoryServiceTest {
     @Test
     @Order(10)
     @DisplayName("하의 카테고리 삭제 후 하의 카테고리 조회")
-    public void findBottomAfterDelete() throws Exception {
+    public void findBottomAfterDelete() {
         Category deletedBottomCategory = categoryService.findById(memberNo, bottomCategoryId);
 
         logger.info("{}", deletedBottomCategory);
@@ -167,7 +171,7 @@ public class CategoryServiceTest {
     @Test
     @Order(11)
     @DisplayName("하의 카테고리 삭제 후 하의 카테고리 업데이트 시도")
-    public void updateBottomAfterDelete() throws Exception {
+    public void updateBottomAfterDelete() {
         org.junit.jupiter.api.Assertions.assertThrows(NotFoundException.class, () -> {
             Category maybeEmpty = categoryService.updateCategory(memberNo, bottomCategoryId, toBeBottomCategoryName);
             logger.info("{}", maybeEmpty);
