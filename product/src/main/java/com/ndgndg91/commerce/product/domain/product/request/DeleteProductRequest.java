@@ -1,15 +1,12 @@
 package com.ndgndg91.commerce.product.domain.product.request;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class DeleteProductRequest {
-    private Long productId;
+    private final Long productId;
 
     public DeleteProductRequest(Long productId) {
         com.google.common.base.Preconditions.checkNotNull(productId);

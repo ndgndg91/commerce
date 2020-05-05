@@ -1,13 +1,13 @@
 package com.ndgndg91.commerce.product.domain.category.request;
 
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-@NoArgsConstructor
+@Getter
 public final class UpdateCategoryRequest {
-    private Long categoryId;
-    private String categoryName;
+    private final Long categoryId;
+    private final String categoryName;
 
     public UpdateCategoryRequest(Long categoryId, String categoryName) {
         com.google.common.base.Preconditions.checkNotNull(categoryId);
@@ -15,14 +15,6 @@ public final class UpdateCategoryRequest {
         com.google.common.base.Preconditions.checkArgument(categoryName.getBytes().length < 1000);
         this.categoryId = categoryId;
         this.categoryName = categoryName;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
     }
 
     @Override

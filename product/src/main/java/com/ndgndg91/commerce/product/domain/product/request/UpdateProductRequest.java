@@ -1,9 +1,7 @@
 package com.ndgndg91.commerce.product.domain.product.request;
 
 import com.ndgndg91.commerce.product.domain.product.Product;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.lang.Nullable;
@@ -13,13 +11,12 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class UpdateProductRequest {
-    private Long productId;
-    private String productName;
-    private BigDecimal normalPrice;
-    private BigDecimal discountPrice;
-    private Set<Long> categoryIds;
+    private final Long productId;
+    private final String productName;
+    private final BigDecimal normalPrice;
+    private final BigDecimal discountPrice;
+    private final Set<Long> categoryIds;
 
     public UpdateProductRequest(
             Long productId,

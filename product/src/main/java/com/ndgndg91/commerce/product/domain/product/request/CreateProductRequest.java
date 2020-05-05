@@ -12,13 +12,12 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class CreateProductRequest {
-    private String productName;
-    private BigDecimal normalPrice;
-    private BigDecimal discountPrice;
+    private final String productName;
+    private final BigDecimal normalPrice;
+    private final BigDecimal discountPrice;
 
-    private Set<Long> categoryIds;
+    private final Set<Long> categoryIds;
 
     public CreateProductRequest(
             String productName,

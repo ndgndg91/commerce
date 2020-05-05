@@ -1,20 +1,16 @@
 package com.ndgndg91.commerce.product.domain.category.request;
 
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-@NoArgsConstructor
+@Getter
 public final class DeleteCategoryRequest {
-    private Long categoryId;
+    private final Long categoryId;
 
     public DeleteCategoryRequest(Long categoryId) {
         com.google.common.base.Preconditions.checkNotNull(categoryId);
         this.categoryId = categoryId;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
     }
 
     @Override
