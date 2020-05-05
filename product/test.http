@@ -1,5 +1,5 @@
 GET http://127.0.0.1:8080/products/1?offset=0&limit=10
-api_key: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sImlzcyI6Im5kZ25kZzkxLWdvb2QiLCJuYW1lIjoibmRnbmRnOTEiLCJleHAiOjE1ODc5MDY4MjUsImlhdCI6MTU4NzkwNTkyNSwidXNlcktleSI6MzA1OTUsImVtYWlsIjoibmRnbmRnOTFAZ21haWwuY29tIn0.V_URZFMMYx5pYftyxwn7ZlS69xykh0g_0P9N_VNW_7lUk1_U_A-aplM31GvEpis4Oom2olNC9uHJ6Mdeus_w4g
+api_key: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sImlzcyI6Im5kZ25kZzkxLWdvb2QiLCJuYW1lIjoibmRnbmRnOTEiLCJleHAiOjE1ODg2ODQzMzAsImlhdCI6MTU4ODY4MzQzMCwidXNlcktleSI6MCwiZW1haWwiOiJuZGduZGc5MUBnbWFpbC5jb20ifQ.CHtqjaZlxp9d5GknWhiOySBxr5v-yJDyPu5p5FSd4ZN-v1zHR6l_SLpEN8rChvQsFUebdcrl-lRpbPQ3ZCMQyQ
 ###
 
 POST http://127.0.0.1:9090/sign-in
@@ -7,7 +7,18 @@ Content-Type: application/json
 
 {
   "principal" : "ndgndg91@gmail.com",
-  "credentials": "$s0$e0801$QwLnCaWcQYwBoIAF4wJpzw==$CNcCO9dfrl12iQPczeZcFOedds+afWDQz1E2ige0Ass="
+  "credentials": "123123"
 }
 
 ###
+
+POST http://127.0.0.1:8080/products
+api_key: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sImlzcyI6Im5kZ25kZzkxLWdvb2QiLCJuYW1lIjoibmRnbmRnOTEiLCJleHAiOjE1ODg2ODQzMzAsImlhdCI6MTU4ODY4MzQzMCwidXNlcktleSI6MCwiZW1haWwiOiJuZGduZGc5MUBnbWFpbC5jb20ifQ.CHtqjaZlxp9d5GknWhiOySBxr5v-yJDyPu5p5FSd4ZN-v1zHR6l_SLpEN8rChvQsFUebdcrl-lRpbPQ3ZCMQyQ
+Content-Type: application/json
+
+{
+  "productName": "power-master",
+  "normalPrice": "890000",
+  "discountPrice": "780000",
+  "categoryIds": ["1","2"]
+}

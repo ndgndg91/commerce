@@ -25,7 +25,7 @@ public class ProductController {
     private final ProductService productService;
 
     /**
-     * 카테고리와 함께 새로운 상품 생성
+     * 카테고리 매핑과 함께 새로운 상품 생성
      */
     @PostMapping
     public ResponseEntity<Void> createProduct(
