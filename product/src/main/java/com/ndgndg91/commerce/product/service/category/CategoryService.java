@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +29,10 @@ public class  CategoryService {
 
     public Category findById(final long memberNo, final Long categoryId) {
         return categoryRepository.findById(memberNo, categoryId).orElse(Category.EMPTY);
+    }
+
+    public List<Category> findByIds(final long memberNo, final Set<Long> categoryIds) {
+        return categoryRepository.findByIds(memberNo, categoryIds);
     }
 
     @Transactional

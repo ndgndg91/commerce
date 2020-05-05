@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 @RequiredArgsConstructor
@@ -40,6 +41,13 @@ public class CategoryRepository {
             return Optional.empty();
         }
 
+    }
+
+    public List<Category> findByIds(long memberNo, Set<Long> ids) {
+        return em.createQuery("SELECT c FROM Category c WHERE c.categoryId IN :ids AND c.memberNo = :memberNo", Category.class)
+                .setParameter("ids", ids)
+                .setParameter("memberNo", memberNo)
+                .getResultList();
     }
 
     public void delete(long memberNo, Long categoryId) {

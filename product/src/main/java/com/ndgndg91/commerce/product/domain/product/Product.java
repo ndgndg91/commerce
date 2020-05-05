@@ -1,19 +1,25 @@
 package com.ndgndg91.commerce.product.domain.product;
 
 import com.ndgndg91.commerce.product.domain.category.Category;
-import lombok.Getter;
+import lombok.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
 @Entity
 @Table(name = "product")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Product {
+    public static final Product EMPTY = new Product();
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productSeqGen")
@@ -27,9 +33,14 @@ public class Product {
 
     private long memberNo;
 
-    @ManyToMany(cascade=CascadeType.DETACH)
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.DETACH)
     @JoinTable(name="category_product", joinColumns=@JoinColumn(name="productId"), inverseJoinColumns=@JoinColumn(name="categoryId"))
-    private Set<Category> categories;
+    private final Set<Category> categories = new HashSet<>();
+
+    public void createNewProduct(long memberNo, List<Category> categories) {
+        this.memberNo = memberNo;
+        this.categories.addAll(categories);
+    }
 
     @Override
     public String toString() {

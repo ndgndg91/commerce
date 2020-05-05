@@ -12,12 +12,17 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public final class CategoryResponse {
+    private static final CategoryResponse EMPTY = new CategoryResponse();
     private long id;
     private String name;
     private String updatedTime;
     private String createdTime;
 
     public static CategoryResponse convert(Category category) {
+        if (category == Category.EMPTY) {
+            return EMPTY;
+        }
+
         CategoryResponse categoryResponse = new CategoryResponse();
         categoryResponse.id = category.getCategoryId();
         categoryResponse.name = category.getCategoryName();
