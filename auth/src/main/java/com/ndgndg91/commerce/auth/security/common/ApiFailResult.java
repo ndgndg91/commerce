@@ -26,4 +26,6 @@ public final class ApiFailResult implements ApiResponse {
     public static ApiFailResult invalidPassword(String message) { return new ApiFailResult(message);}
 
     public static ApiFailResult notExistMember(String message) { return new ApiFailResult(message);}
+
+    public static ApiFailResult msg(String message) { return new ApiFailResult(message);}
 }

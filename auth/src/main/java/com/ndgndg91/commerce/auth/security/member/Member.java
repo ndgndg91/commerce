@@ -3,49 +3,36 @@ package com.ndgndg91.commerce.auth.security.member;
 
 import com.ndgndg91.commerce.auth.security.member.exception.InvalidPasswordException;
 import com.ndgndg91.commerce.auth.security.security.JWT;
-import lombok.Getter;
+import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @Table(name = "members")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "memberSeqGen")
+    @SequenceGenerator(name = "memberSeqGen", sequenceName="MEMBER_ID_SEQ", allocationSize=20)
     private long memberNo;
-    private String memberUniqueKey;
     private String id;
     private String userName;
-    private String certification;
     private String password;
-    private String signupForm;
-    private String signupKey;
-    private String plan;
-    private String campaing;
-    private String adQuery;
-    private String adKeyword;
-    private String status;
-    private String emailSubscription;
-    private boolean showNotice;
-    private String billkey;
-    private String billkeyInfo;
-    private int paymentTerm;
-    private String cancel;
     private long loginCount;
-    private long editorStayTime;
-    private long editorPublishCount;
     private LocalDateTime loginDate;
     private LocalDateTime updateDate;
     private LocalDateTime joinedDate;
-    private LocalDateTime expireDate;
 
-    public void checkPassword(String credentials) {
-        if (credentials.equals(password))
+    public void checkPassword(PasswordEncoder passwordEncoder, String credentials) {
+        if (passwordEncoder.matches(credentials, password)) {
             return;
+        }
 
         throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
     }
@@ -63,9 +50,7 @@ public class Member {
         this.loginCount++;
     }
 
-    public void signUp(String id, String userName, String password){
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
+    public void encodePassword(PasswordEncoder passwordEncoder){
+        this.password = passwordEncoder.encode(password);
     }
 }

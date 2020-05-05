@@ -12,14 +12,12 @@ public final class MemberToFront {
     private long memberNo;
     private String id;
     private String userName;
-    private String plan;
 
     public static MemberToFront transform(Member member){
         MemberToFront res = new MemberToFront();
         res.memberNo = member.getMemberNo();
         res.id = member.getId();
         res.userName = member.getUserName();
-        res.plan = member.getPlan();
         return res;
     }
 

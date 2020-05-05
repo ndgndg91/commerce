@@ -4,6 +4,7 @@ import com.ndgndg91.commerce.auth.security.member.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
@@ -22,15 +23,23 @@ public class MemberRepository {
     }
 
     public Optional<Member> findByEmail(String email) {
-        return Optional.ofNullable(em.createQuery("SELECT m FROM Member m WHERE m.id = :email", Member.class)
-                .setParameter("email", email)
-                .getSingleResult());
+        try {
+            return Optional.of(em.createQuery("SELECT m FROM Member m WHERE m.id = :email", Member.class)
+                    .setParameter("email", email)
+                    .getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     public Optional<Member> findByUserName(String userName) {
-        return Optional.ofNullable(em.createQuery("SELECT m FROM Member m WHERE m.userName = :userName", Member.class)
-                .setParameter("userName", userName)
-                .getSingleResult());
+        try {
+            return Optional.of(em.createQuery("SELECT m FROM Member m WHERE m.userName = :userName", Member.class)
+                    .setParameter("userName", userName)
+                    .getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     public Member save(Member member){

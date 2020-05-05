@@ -3,13 +3,43 @@ api_key: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sIml
 
 ###
 
-POST http://127.0.0.1:8080/sign-in
+POST http://127.0.0.1:9090/sign-in
 Content-Type: application/json
 
 {
 "principal" : "ndgndg91@gmail.com",
-"credentials": "$s0$e0801$QwLnCaWcQYwBoIAF4wJpzw==$CNcCO9dfrl12iQPczeZcFOedds+afWDQz1E2ige0Ass="
+"credentials": "123123"
 }
 
 ###
 
+POST http://127.0.0.1:9090/sign-up
+Content-Type: application/json
+
+{
+"userName": "ndgndg91",
+  "email": "ndgndg91@gmail.com",
+  "password": "123123"
+}
+
+###
+POST http://127.0.0.1:9090/sign-up
+Content-Type: application/json
+
+{
+  "userName" : "donggil",
+  "email": "donggil@sixshop.com",
+  "password": "123123"
+}
+
+###
+
+POST http://127.0.0.1:9090/sign-in
+Content-Type: application/json
+
+{
+  "principal" : "donggil@sixshop.com",
+  "credentials": "123123"
+}
+
+###
