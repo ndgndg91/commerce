@@ -13,7 +13,7 @@ public class AuthenticationAdviser {
 
     @ExceptionHandler(NotExistsMemberException.class)
     public ResponseEntity<ApiFailResult> notExistsMember(NotExistsMemberException e) {
-        return ResponseEntity.status(400).body(ApiFailResult.notExistMember(e.getMessage()));
+        return ResponseEntity.badRequest().body(ApiFailResult.notExistMember(e.getMessage()));
     }
 
     @ExceptionHandler(InvalidPasswordException.class)
@@ -28,6 +28,16 @@ public class AuthenticationAdviser {
 
     @ExceptionHandler(DuplicateMemberException.class)
     public ResponseEntity<ApiFailResult> duplicateError(DuplicateMemberException e) {
-        return ResponseEntity.status(400).body(ApiFailResult.msg(e.getMessage()));
+        return ResponseEntity.badRequest().body(ApiFailResult.msg(e.getMessage()));
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ApiFailResult> requiredParamMissingError(NullPointerException e) {
+        return ResponseEntity.badRequest().body(ApiFailResult.msg(e.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiFailResult> illegalArgumentError(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(ApiFailResult.msg(e.getMessage()));
     }
 }
