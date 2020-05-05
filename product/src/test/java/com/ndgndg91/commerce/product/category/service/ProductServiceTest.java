@@ -35,7 +35,6 @@ public class ProductServiceTest {
     private BigDecimal _1_normalPrice;
     private BigDecimal _1_discountPrice;
 
-    private Long _2_productId;
     private String _2_productName;
     private BigDecimal _2_normalPrice;
     private BigDecimal _2_discountPrice;

@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Repository
 @RequiredArgsConstructor
 public class CategoryRepository {
+    private static final String MEMBER_NO_KEY = "memberNo";
 
     @PersistenceContext
     private final EntityManager em;
@@ -26,7 +27,7 @@ public class CategoryRepository {
 
     public List<Category> findByMemberNo(long memberNo, int offset, int limit) {
         return em.createQuery("SELECT c FROM Category c WHERE c.memberNo =:memberNo", Category.class)
-                .setParameter("memberNo", memberNo)
+                .setParameter(MEMBER_NO_KEY, memberNo)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();
@@ -35,7 +36,7 @@ public class CategoryRepository {
     public Optional<Category> findById(long memberNo, Long categoryId) {
         try {
             return Optional.ofNullable(em.createQuery("SELECT c FROM Category c WHERE c.memberNo =:memberNo AND c.categoryId = :categoryId", Category.class)
-                    .setParameter("memberNo", memberNo)
+                    .setParameter(MEMBER_NO_KEY, memberNo)
                     .setParameter("categoryId", categoryId)
                     .getSingleResult());
         } catch (NoResultException e) {
@@ -47,13 +48,13 @@ public class CategoryRepository {
     public Set<Category> findByIds(long memberNo, Set<Long> ids) {
         return em.createQuery("SELECT c FROM Category c WHERE c.categoryId IN :ids AND c.memberNo = :memberNo", Category.class)
                 .setParameter("ids", ids)
-                .setParameter("memberNo", memberNo)
+                .setParameter(MEMBER_NO_KEY, memberNo)
                 .getResultStream().collect(Collectors.toSet());
     }
 
     public void delete(long memberNo, Long categoryId) {
         em.createQuery("DELETE FROM Category c WHERE c.categoryId = :categoryId AND c.memberNo = :memberNo")
-                .setParameter("memberNo", memberNo)
+                .setParameter(MEMBER_NO_KEY, memberNo)
                 .setParameter("categoryId", categoryId)
                 .executeUpdate();
     }
