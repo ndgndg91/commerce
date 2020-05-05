@@ -37,8 +37,23 @@ public class Product {
     @JoinTable(name="category_product", joinColumns=@JoinColumn(name="productId"), inverseJoinColumns=@JoinColumn(name="categoryId"))
     private final Set<Category> categories = new HashSet<>();
 
-    public void createNewProduct(long memberNo, List<Category> categories) {
+    public void createNewProduct(long memberNo, Set<Category> categories) {
         this.memberNo = memberNo;
+        this.createdTime = LocalDateTime.now();
+        this.categories.addAll(categories);
+    }
+
+    public void updateProduct(
+            String name,
+            BigDecimal normalPrice,
+            BigDecimal discountPrice,
+            Set<Category> categories
+    )
+    {
+        this.name = name;
+        this.normalPrice = normalPrice;
+        this.discountPrice = discountPrice;
+        this.categories.clear();
         this.categories.addAll(categories);
     }
 

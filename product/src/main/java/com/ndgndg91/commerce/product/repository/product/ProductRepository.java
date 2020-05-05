@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -30,5 +31,20 @@ public class ProductRepository {
         } catch (NoResultException e) {
             return Optional.empty();
         }
+    }
+
+    public List<Product> findByMemberNo(long memberNo, int offset, int limit) {
+        return em.createQuery("SELECT p FROM Product p WHERE p.memberNo = :memberNo", Product.class)
+                .setParameter("memberNo", memberNo)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public void deleteProduct(long memberNo, Long productId) {
+        em.createQuery("DELETE FROM Product p WHERE p.productId = :productId AND p.memberNo = :memberNo")
+                .setParameter("productId", productId)
+                .setParameter("memberNo", memberNo)
+                .executeUpdate();
     }
 }

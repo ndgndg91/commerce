@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -43,15 +44,15 @@ public class CategoryRepository {
 
     }
 
-    public List<Category> findByIds(long memberNo, Set<Long> ids) {
+    public Set<Category> findByIds(long memberNo, Set<Long> ids) {
         return em.createQuery("SELECT c FROM Category c WHERE c.categoryId IN :ids AND c.memberNo = :memberNo", Category.class)
                 .setParameter("ids", ids)
                 .setParameter("memberNo", memberNo)
-                .getResultList();
+                .getResultStream().collect(Collectors.toSet());
     }
 
     public void delete(long memberNo, Long categoryId) {
-        em.createQuery("DELETE FROM Category c WHERE c.memberNo = :memberNo AND c.categoryId = :categoryId")
+        em.createQuery("DELETE FROM Category c WHERE c.categoryId = :categoryId AND c.memberNo = :memberNo")
                 .setParameter("memberNo", memberNo)
                 .setParameter("categoryId", categoryId)
                 .executeUpdate();

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -13,19 +14,20 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public final class CreateProductRequest {
+public final class UpdateProductRequest {
+    private Long productId;
     private String productName;
     private BigDecimal normalPrice;
     private BigDecimal discountPrice;
-
     private Set<Long> categoryIds;
 
-    public CreateProductRequest(
+    public UpdateProductRequest(
+            Long productId,
             String productName,
             BigDecimal normalPrice,
             BigDecimal discountPrice,
-            Set<Long> categoryIds
-    ) {
+            @Nullable Set<Long> categoryIds) {
+        com.google.common.base.Preconditions.checkNotNull(productId);
         com.google.common.base.Preconditions.checkNotNull(productName);
         com.google.common.base.Preconditions.checkNotNull(normalPrice);
         com.google.common.base.Preconditions.checkArgument(normalPrice.compareTo(BigDecimal.ZERO) >= 0);
@@ -34,6 +36,7 @@ public final class CreateProductRequest {
             com.google.common.base.Preconditions.checkArgument(discountPrice.compareTo(BigDecimal.ZERO) >= 0);
         }
 
+        this.productId = productId;
         this.productName = productName;
         this.normalPrice = normalPrice;
         this.discountPrice = discountPrice;
@@ -41,8 +44,8 @@ public final class CreateProductRequest {
     }
 
     public Product toProduct() {
-        return Product
-                .builder()
+        return Product.builder()
+                .productId(productId)
                 .name(productName)
                 .normalPrice(normalPrice)
                 .discountPrice(discountPrice)

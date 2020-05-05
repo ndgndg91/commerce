@@ -31,7 +31,7 @@ public class  CategoryService {
         return categoryRepository.findById(memberNo, categoryId).orElse(Category.EMPTY);
     }
 
-    public List<Category> findByIds(final long memberNo, final Set<Long> categoryIds) {
+    public Set<Category> findByIds(final long memberNo, final Set<Long> categoryIds) {
         return categoryRepository.findByIds(memberNo, categoryIds);
     }
 

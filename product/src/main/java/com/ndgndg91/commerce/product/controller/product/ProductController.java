@@ -1,7 +1,10 @@
 package com.ndgndg91.commerce.product.controller.product;
 
+import com.ndgndg91.commerce.product.common.page.Pageable;
 import com.ndgndg91.commerce.product.domain.product.Product;
 import com.ndgndg91.commerce.product.domain.product.request.CreateProductRequest;
+import com.ndgndg91.commerce.product.domain.product.request.DeleteProductRequest;
+import com.ndgndg91.commerce.product.domain.product.request.UpdateProductRequest;
 import com.ndgndg91.commerce.product.domain.product.response.ProductResponse;
 import com.ndgndg91.commerce.product.security.domain.JWTAuthentication;
 import com.ndgndg91.commerce.product.service.product.ProductService;
@@ -11,6 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +25,7 @@ public class ProductController {
     private final ProductService productService;
 
     /**
-     * 새로운 상품 생성
+     * 카테고리와 함께 새로운 상품 생성
      */
     @PostMapping
     public ResponseEntity<Void> createProduct(
@@ -45,17 +50,41 @@ public class ProductController {
         return ResponseEntity.ok(res);
     }
 
-    @PutMapping
-    public ResponseEntity<Object> updateProduct(
-            @AuthenticationPrincipal JWTAuthentication jwtAuthentication
-    ){
-        return ResponseEntity.ok().build();
+    /**
+     * 상품 목록 조회
+     */
+    @GetMapping
+    public ResponseEntity<List<ProductResponse>> readProducts(
+            @AuthenticationPrincipal JWTAuthentication jwtAuthentication,
+            Pageable pageable
+    )
+    {
+        List<Product> products = productService.findByMemberNo(jwtAuthentication.memberNo, pageable);
+        List<ProductResponse> res = products.stream().map(ProductResponse::convert).collect(Collectors.toList());
+        return ResponseEntity.ok(res);
     }
 
+    /**
+     * 특정 상품 업데이트
+     */
+    @PutMapping
+    public ResponseEntity<Void> updateProduct(
+            @AuthenticationPrincipal final JWTAuthentication jwtAuthentication,
+            @RequestBody final UpdateProductRequest request
+    ){
+        Product product = productService.updateProduct(jwtAuthentication.memberNo, request.toProduct(), request.getCategoryIds());
+        return ResponseEntity.ok().location(URI.create("/products/" + product.getProductId())).build();
+    }
+
+    /**
+     * 특정 상품 삭제
+     */
     @DeleteMapping
-    public ResponseEntity<Object> deleteProduct(
-            @AuthenticationPrincipal JWTAuthentication jwtAuthentication
+    public ResponseEntity<Void> deleteProduct(
+            @AuthenticationPrincipal final JWTAuthentication jwtAuthentication,
+            @RequestBody final DeleteProductRequest request
     ) {
-        return ResponseEntity.ok().build();
+        productService.deleteProduct(jwtAuthentication.memberNo, request.getProductId());
+        return ResponseEntity.noContent().build();
     }
 }

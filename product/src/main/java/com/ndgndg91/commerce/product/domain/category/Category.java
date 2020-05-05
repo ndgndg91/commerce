@@ -32,6 +32,7 @@ public class Category {
         Category newCategory = new Category();
         newCategory.categoryName = categoryName;
         newCategory.memberNo = memberNo;
+        newCategory.createdTime = LocalDateTime.now();
         return newCategory;
     }
 
