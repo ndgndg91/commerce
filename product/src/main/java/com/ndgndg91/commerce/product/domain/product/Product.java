@@ -6,7 +6,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +24,14 @@ public class Product {
     @SequenceGenerator(name = "productSeqGen", sequenceName="PRODUCT_ID_SEQ", allocationSize=20)
     private Long productId;
     private String name;
-    private BigDecimal normalPrice;
-    private BigDecimal discountPrice;
+    @Embedded
+    @AttributeOverride(name = "amount", column = @Column(name = "normalPriceAmount"))
+    @AttributeOverride(name = "currency", column = @Column(name = "normalPriceCurrency"))
+    private Price normalPrice;
+    @Embedded
+    @AttributeOverride(name = "amount", column = @Column(name = "discountPriceAmount"))
+    @AttributeOverride(name = "currency", column = @Column(name = "discountPriceCurrency"))
+    private Price discountPrice;
     private LocalDateTime updatedTime;
     private LocalDateTime createdTime;
 
@@ -44,14 +49,14 @@ public class Product {
 
     public void updateProduct(
             String name,
-            BigDecimal normalPrice,
-            BigDecimal discountPrice,
+            Price normalPriceAmount,
+            Price discountPriceAmount,
             Set<Category> categories
     )
     {
         this.name = name;
-        this.normalPrice = normalPrice;
-        this.discountPrice = discountPrice;
+        this.normalPrice = normalPriceAmount;
+        this.discountPrice = discountPriceAmount;
         this.categories.clear();
         this.categories.addAll(categories);
     }

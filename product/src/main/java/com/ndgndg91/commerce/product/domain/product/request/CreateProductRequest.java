@@ -1,5 +1,7 @@
 package com.ndgndg91.commerce.product.domain.product.request;
 
+import com.ndgndg91.commerce.product.domain.product.Currency;
+import com.ndgndg91.commerce.product.domain.product.Price;
 import com.ndgndg91.commerce.product.domain.product.Product;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -12,37 +14,43 @@ import java.util.Set;
 @Getter
 public final class CreateProductRequest {
     private final String productName;
-    private final BigDecimal normalPrice;
-    private final BigDecimal discountPrice;
+    private final BigDecimal normalPriceAmount;
+    private final BigDecimal discountPriceAmount;
 
     private final Set<Long> categoryIds;
+    private final Currency currency;
 
     public CreateProductRequest(
             String productName,
-            BigDecimal normalPrice,
-            BigDecimal discountPrice,
-            Set<Long> categoryIds
+            BigDecimal normalPriceAmount,
+            BigDecimal discountPriceAmount,
+            Set<Long> categoryIds,
+            String currencyCode
     ) {
         com.google.common.base.Preconditions.checkNotNull(productName);
-        com.google.common.base.Preconditions.checkNotNull(normalPrice);
-        com.google.common.base.Preconditions.checkArgument(normalPrice.compareTo(BigDecimal.ZERO) >= 0);
-        if (Objects.nonNull(discountPrice)) {
-            com.google.common.base.Preconditions.checkArgument(discountPrice.compareTo(normalPrice) < 0);
-            com.google.common.base.Preconditions.checkArgument(discountPrice.compareTo(BigDecimal.ZERO) >= 0);
+        com.google.common.base.Preconditions.checkNotNull(normalPriceAmount);
+        com.google.common.base.Preconditions.checkNotNull(currencyCode);
+        com.google.common.base.Preconditions.checkArgument(normalPriceAmount.compareTo(BigDecimal.ZERO) >= 0);
+        if (Objects.nonNull(discountPriceAmount)) {
+            com.google.common.base.Preconditions.checkArgument(discountPriceAmount.compareTo(normalPriceAmount) < 0);
+            com.google.common.base.Preconditions.checkArgument(discountPriceAmount.compareTo(BigDecimal.ZERO) >= 0);
         }
 
         this.productName = productName;
-        this.normalPrice = normalPrice;
-        this.discountPrice = discountPrice;
+        this.normalPriceAmount = normalPriceAmount;
+        this.discountPriceAmount = discountPriceAmount;
         this.categoryIds = categoryIds;
+        this.currency = Currency.of(currencyCode);
     }
 
     public Product toProduct() {
+        Price aNormalPrice = Price.normalPrice(normalPriceAmount, currency);
+        Price aDiscountPrice = Price.discountPrice(discountPriceAmount, currency);
         return Product
                 .builder()
                 .name(productName)
-                .normalPrice(normalPrice)
-                .discountPrice(discountPrice)
+                .normalPrice(aNormalPrice)
+                .discountPrice(aDiscountPrice)
                 .build();
     }
 

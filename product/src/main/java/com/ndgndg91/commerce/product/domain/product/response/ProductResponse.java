@@ -1,5 +1,6 @@
 package com.ndgndg91.commerce.product.domain.product.response;
 
+import com.ndgndg91.commerce.product.domain.product.Price;
 import com.ndgndg91.commerce.product.domain.product.Product;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -7,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 
 @Getter
@@ -16,8 +16,8 @@ public final class ProductResponse {
     private static final ProductResponse EMPTY = new ProductResponse();
     private long id;
     private String name;
-    private BigDecimal normalPrice;
-    private BigDecimal discountPrice;
+    private Price normalPrice;
+    private Price discountPrice;
     private String updatedTime;
     private String createdTime;
 

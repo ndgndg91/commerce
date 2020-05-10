@@ -2,6 +2,7 @@ package com.ndgndg91.commerce.product.category.service;
 
 import com.ndgndg91.commerce.product.common.page.Pageable;
 import com.ndgndg91.commerce.product.common.page.PageableRequest;
+import com.ndgndg91.commerce.product.domain.product.Price;
 import com.ndgndg91.commerce.product.domain.product.Product;
 import com.ndgndg91.commerce.product.service.category.CategoryService;
 import com.ndgndg91.commerce.product.service.product.ProductService;
@@ -32,14 +33,15 @@ public class ProductServiceTest {
 
     private Long _1_productId;
     private String _1_productName;
-    private BigDecimal _1_normalPrice;
-    private BigDecimal _1_discountPrice;
+    private BigDecimal _1_normalPriceAmount;
+    private BigDecimal _1_discountPriceAmount;
 
     private String _2_productName;
-    private BigDecimal _2_normalPrice;
-    private BigDecimal _2_discountPrice;
+    private BigDecimal _2_normalPriceAmount;
+    private BigDecimal _2_discountPriceAmount;
 
     private final Set<Long> categoryIds = new HashSet<>();
+    private final String currencyCode = "KRW";
 
     @BeforeAll
     void setUp() {
@@ -52,12 +54,12 @@ public class ProductServiceTest {
         categoryIds.add(topCategoryId);
 
         _1_productName = "구찌-애플-col-power";
-        _1_normalPrice = new BigDecimal(720000);
-        _1_discountPrice = new BigDecimal(640000);
+        _1_normalPriceAmount = new BigDecimal(720000);
+        _1_discountPriceAmount = new BigDecimal(640000);
 
         _2_productName = "두번째-상품";
-        _2_normalPrice = new BigDecimal(65000);
-        _2_discountPrice = new BigDecimal(54000);
+        _2_normalPriceAmount = new BigDecimal(65000);
+        _2_discountPriceAmount = new BigDecimal(54000);
     }
 
 
@@ -66,10 +68,12 @@ public class ProductServiceTest {
     @DisplayName("카테고리에 속한 상품 추가 후 조회")
     public void addProduct() {
         //given
+        Price normalPrice = Price.normalPrice(_1_normalPriceAmount, currencyCode);
+        Price discountPrice = Price.discountPrice(_1_discountPriceAmount, currencyCode);
         Product _1_product = Product.builder()
                 .name(_1_productName)
-                .normalPrice(_1_normalPrice)
-                .discountPrice(_1_discountPrice)
+                .normalPrice(normalPrice)
+                .discountPrice(discountPrice)
                 .build();
         _1_productId = productService.createProduct(memberNo, _1_product, categoryIds);
         logger.info("{}", _1_productId);
@@ -102,11 +106,13 @@ public class ProductServiceTest {
     @DisplayName("업데이트 후 상품 조회")
     public void readProductAfterUpdate() {
         //given
+        Price normalPrice = Price.normalPrice(new BigDecimal(1000), currencyCode);
+        Price discountPrice = Price.discountPrice(new BigDecimal(500), currencyCode);
         Product update = Product.builder()
                 .productId(_1_productId)
                 .name("갓뎀왓더헬")
-                .normalPrice(new BigDecimal(1000))
-                .discountPrice(new BigDecimal(500))
+                .normalPrice(normalPrice)
+                .discountPrice(discountPrice)
                 .build();
 
         //when
@@ -125,10 +131,12 @@ public class ProductServiceTest {
     @DisplayName("두 번째 상품 추가 후 상품 목록 조회")
     public void readProductsAfterAddProduct() {
         //given
+        Price normalPrice = Price.normalPrice(_2_normalPriceAmount, currencyCode);
+        Price discountPrice = Price.discountPrice(_2_discountPriceAmount, currencyCode);
         Product _2_product = Product.builder()
                 .name(_2_productName)
-                .normalPrice(_2_normalPrice)
-                .discountPrice(_2_discountPrice)
+                .normalPrice(normalPrice)
+                .discountPrice(discountPrice)
                 .build();
         Pageable pageable = new PageableRequest();
 
