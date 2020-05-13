@@ -2,7 +2,7 @@ package com.ndgndg91.commerce.product.category.service;
 
 import com.ndgndg91.commerce.product.common.page.Pageable;
 import com.ndgndg91.commerce.product.common.page.PageableRequest;
-import com.ndgndg91.commerce.product.domain.product.Price;
+import com.ndgndg91.commerce.product.domain.product.vo.Price;
 import com.ndgndg91.commerce.product.domain.product.Product;
 import com.ndgndg91.commerce.product.service.category.CategoryService;
 import com.ndgndg91.commerce.product.service.product.ProductService;
@@ -71,7 +71,7 @@ public class ProductServiceTest {
         Price normalPrice = Price.normalPrice(_1_normalPriceAmount, currencyCode);
         Price discountPrice = Price.discountPrice(_1_discountPriceAmount, currencyCode);
         Product _1_product = Product.builder()
-                .name(_1_productName)
+                .productName(_1_productName)
                 .normalPrice(normalPrice)
                 .discountPrice(discountPrice)
                 .build();
@@ -110,7 +110,7 @@ public class ProductServiceTest {
         Price discountPrice = Price.discountPrice(new BigDecimal(500), currencyCode);
         Product update = Product.builder()
                 .productId(_1_productId)
-                .name("갓뎀왓더헬")
+                .productName("갓뎀왓더헬")
                 .normalPrice(normalPrice)
                 .discountPrice(discountPrice)
                 .build();
@@ -120,7 +120,7 @@ public class ProductServiceTest {
 
         //then
         Assertions.assertSame(update.getProductId(), product.getProductId());
-        Assertions.assertSame(update.getName(), product.getName());
+        Assertions.assertSame(update.getProductName(), product.getProductName());
         Assertions.assertSame(update.getNormalPrice(), product.getNormalPrice());
         Assertions.assertSame(update.getDiscountPrice(), product.getDiscountPrice());
         Assertions.assertSame(update.getCategories().size(), product.getCategories().size());
@@ -134,7 +134,7 @@ public class ProductServiceTest {
         Price normalPrice = Price.normalPrice(_2_normalPriceAmount, currencyCode);
         Price discountPrice = Price.discountPrice(_2_discountPriceAmount, currencyCode);
         Product _2_product = Product.builder()
-                .name(_2_productName)
+                .productName(_2_productName)
                 .normalPrice(normalPrice)
                 .discountPrice(discountPrice)
                 .build();

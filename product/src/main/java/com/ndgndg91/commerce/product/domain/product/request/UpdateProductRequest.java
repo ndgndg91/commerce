@@ -1,7 +1,7 @@
 package com.ndgndg91.commerce.product.domain.product.request;
 
-import com.ndgndg91.commerce.product.domain.product.Currency;
-import com.ndgndg91.commerce.product.domain.product.Price;
+import com.ndgndg91.commerce.product.domain.product.vo.Currency;
+import com.ndgndg91.commerce.product.domain.product.vo.Price;
 import com.ndgndg91.commerce.product.domain.product.Product;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -51,7 +51,7 @@ public final class UpdateProductRequest {
         Price aDiscountPrice = Price.discountPrice(discountPriceAmount, currency);
         return Product.builder()
                 .productId(productId)
-                .name(productName)
+                .productName(productName)
                 .normalPrice(aNormalPrice)
                 .discountPrice(aDiscountPrice)
                 .build();

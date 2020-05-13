@@ -48,7 +48,7 @@ public class ProductService {
     ) {
         Product origin = findById(memberNo, request.getProductId());
         Set<Category> categories = categoryService.findByIds(memberNo, categoryIds);
-        origin.updateProduct(request.getName(), request.getNormalPrice(), request.getDiscountPrice(), categories);
+        origin.updateProduct(request.getProductName(), request.getNormalPrice(), request.getDiscountPrice(), categories);
         return origin;
     }
 

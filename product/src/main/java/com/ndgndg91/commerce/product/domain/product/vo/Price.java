@@ -1,4 +1,4 @@
-package com.ndgndg91.commerce.product.domain.product;
+package com.ndgndg91.commerce.product.domain.product.vo;
 
 import lombok.Getter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;

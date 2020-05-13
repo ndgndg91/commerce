@@ -1,6 +1,6 @@
 package com.ndgndg91.commerce.product.domain.product.response;
 
-import com.ndgndg91.commerce.product.domain.product.Price;
+import com.ndgndg91.commerce.product.domain.product.vo.Price;
 import com.ndgndg91.commerce.product.domain.product.Product;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public final class ProductResponse {
 
         ProductResponse productResponse = new ProductResponse();
         productResponse.id = product.getProductId();
-        productResponse.name = product.getName();
+        productResponse.name = product.getProductName();
         productResponse.normalPrice = product.getNormalPrice();
         productResponse.discountPrice = product.getDiscountPrice();
         productResponse.updatedTime = product.getUpdatedTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);

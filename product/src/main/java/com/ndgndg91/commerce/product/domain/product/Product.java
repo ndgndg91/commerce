@@ -1,6 +1,8 @@
 package com.ndgndg91.commerce.product.domain.product;
 
+import com.ndgndg91.commerce.product.domain.SKU;
 import com.ndgndg91.commerce.product.domain.category.Category;
+import com.ndgndg91.commerce.product.domain.product.vo.Price;
 import lombok.*;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -23,7 +25,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productSeqGen")
     @SequenceGenerator(name = "productSeqGen", sequenceName="PRODUCT_ID_SEQ", allocationSize=20)
     private Long productId;
-    private String name;
+    private String productName;
+    @Embedded
+    @AttributeOverride(name = "value", column = @Column(name = "productSKU"))
+    private SKU sku;
     @Embedded
     @AttributeOverride(name = "amount", column = @Column(name = "normalPriceAmount"))
     @AttributeOverride(name = "currency", column = @Column(name = "normalPriceCurrency"))
@@ -48,13 +53,13 @@ public class Product {
     }
 
     public void updateProduct(
-            String name,
+            String productName,
             Price normalPriceAmount,
             Price discountPriceAmount,
             Set<Category> categories
     )
     {
-        this.name = name;
+        this.productName = productName;
         this.normalPrice = normalPriceAmount;
         this.discountPrice = discountPriceAmount;
         this.categories.clear();
